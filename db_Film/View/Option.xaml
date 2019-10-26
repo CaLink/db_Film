@@ -1,0 +1,42 @@
+﻿<Window x:Class="db_Film.View.Option"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:db_Film.View"
+        xmlns:baton="clr-namespace:db_Film.ViewModel"
+        mc:Ignorable="d"
+        Title="Option" SizeToContent="WidthAndHeight" MinWidth="300">
+    <Window.Resources>
+        <baton:ViewOption x:Key="batton"/>
+        <Style TargetType="TextBox">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16px"/>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16px"/>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16px"/>
+            </Style.Setters>
+        </Style>
+    </Window.Resources>
+    <StackPanel Orientation="Vertical" DataContext="{local:SqlProperties}" >
+        <TextBlock Text="Server" />
+        <TextBox Text="{Binding Server}"/>
+        <TextBlock Text="Data Base" />
+        <TextBox Text="{Binding DB}"/>
+        <TextBlock Text="Login" />
+        <TextBox Text="{Binding User}"/>
+        <TextBlock Text="Password" />
+        <TextBox Text="{Binding Password}"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DataContext="{StaticResource batton}">
+            <Button Content="Test" Command="{Binding TestConnection}"/>
+            <Button Content="Close" Command="{Binding SaveConnection}" Click="Button_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

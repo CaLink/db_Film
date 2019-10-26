@@ -1,0 +1,131 @@
+﻿<Window x:Class="db_Film.View.Add_Edit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:db_Film.View"
+        mc:Ignorable="d"
+        Title="Add_Edit" Height="450" Width="700">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Left" MaxWidth="200">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Type: " Grid.Column="0" Margin="0 0 0 5"/>
+                <ComboBox  Grid.Column="1" SelectedIndex="0" Margin="0 0 0 5">
+                    <TextBlock Text="Film"/>
+                    <TextBlock Text="Serial"/>
+                    <TextBlock Text="ANIME"/>
+                </ComboBox>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Name: " Grid.Column="0"  Margin="0 0 0 5"/>
+                <TextBox Text="FilmName" Grid.Column="1"  Margin="0 0 0 5"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock MinWidth="100" Text="Producer: " Grid.Column="0" Margin="0 0 0 5"/>
+                <ComboBox  Grid.Column="1" SelectedIndex="0" Margin="0 0 0 5">
+                <!--IDK-->
+                    <TextBlock Text="IDK"/>
+                </ComboBox>
+                <Button Grid.Column="3" Content="•"  Margin="5 0 5 5"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Year: " Grid.Column="0" Margin="0 0 0 5"/>
+                <TextBox Text="Year" Grid.Column="1" Margin="0 0 0 5"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="County: " Grid.Column="0" Margin="0 0 0 5"/>
+                <ComboBox  Grid.Column="1" SelectedIndex="0" Margin="0 0 0 5">
+                    
+                </ComboBox>
+                <Button Grid.Column="3" Content="•"  Margin="5 0 5 5"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="AgeRate: " Grid.Column="0" Margin="0 0 0 5"/>
+                <ComboBox  Grid.Column="1" SelectedIndex="4" Margin="0 0 0 5">
+                    <TextBlock Text="G"/>
+                    <TextBlock Text="PG"/>
+                    <TextBlock Text="PG-13"/>
+                    <TextBlock Text="R"/>
+                    <TextBlock Text="NC-17"/>
+                </ComboBox>
+                
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Genre: " Grid.Column="0"  Margin="0 0 0 5" />
+                <ComboBox  Grid.Column="1" SelectedIndex="0"  Margin="0 0 0 5">
+                    
+                </ComboBox>
+                <Button Grid.Column="3" Content="•"  Margin="5 0 5 5"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Score: " Grid.Column="0" Margin="0 0 0 5"/>
+                <ComboBox Text="CurrentTab" Grid.Column="1" SelectedIndex="0" Margin="0 0 0 5">
+                    <!--Добавить цветовую градацию-->
+                    <TextBlock Text="0"/>
+                    <TextBlock Text="1"/>
+                    <TextBlock Text="2"/>
+                    <TextBlock Text="3"/>
+                    <TextBlock Text="4"/>
+                    <TextBlock Text="5"/>
+                    <TextBlock Text="6"/>
+                    <TextBlock Text="7"/>
+                    <TextBlock Text="8"/>
+                    <TextBlock Text="9"/>
+                    <TextBlock Text="10"/>
+                </ComboBox>
+            </Grid>
+        </StackPanel>
+        <Border Padding="15" VerticalAlignment="Top">
+            <Image Source="pack://siteoforigin:,,,/Source/TempJPEG.jpg"  Grid.Column="0" Stretch="Uniform" />
+        </Border>
+
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" >
+            <Button Content="Save" Grid.Column="1" VerticalAlignment="Bottom" Margin="7" Padding="15 10 15 10"/>
+            <Button Content="Cancel" Grid.Column="1" VerticalAlignment="Bottom" Margin="7" Padding="15 10 15 10"/>
+        </StackPanel>
+    </Grid>
+</Window>

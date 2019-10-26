@@ -19,19 +19,24 @@
             <GroupBox.Header>
                 <ComboBox ItemsSource="{Binding ListDicks}" SelectedItem="{Binding SelectedDick}" DisplayMemberPath="Name" SelectedIndex="0"/> 
             </GroupBox.Header>
-    <Grid>
-                <ListView Margin="10" ItemsSource="{Binding SelectedDick.Array}" HorizontalContentAlignment="Stretch" DataContext="{StaticResource View}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ListView Grid.Row="0" Margin="10" ItemsSource="{Binding SelectedDick.Array}" HorizontalContentAlignment="Stretch" DataContext="{StaticResource View}" SelectedItem="{Binding EditDickItem}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
-            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Content="Close" Margin="0 0 0 0" Padding="5 2 5 2" Click="Button_Click"/>
-            </StackPanel>
+                <TextBox Grid.Row="1" DataContext="{Binding EditDickItem}" Text="{Binding Name}"/>
             </Grid>
         </GroupBox>
         
+        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Button Content="Close" Margin="0 0 0 5" Padding="5 2 5 2" Click="Button_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

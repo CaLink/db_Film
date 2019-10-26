@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="db" Type="System.String" Scope="User">
-      <Value Profile="(Default)">temp_db</Value>
+      <Value Profile="(Default)">films</Value>
     </Setting>
     <Setting Name="password" Type="System.String" Scope="User">
       <Value Profile="(Default)">student</Value>
     </Setting>
     <Setting Name="server" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.1.12</Value>
+      <Value Profile="(Default)">localhost</Value>
     </Setting>
     <Setting Name="user" Type="System.String" Scope="User">
       <Value Profile="(Default)">student</Value>

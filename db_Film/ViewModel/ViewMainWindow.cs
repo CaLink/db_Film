@@ -13,23 +13,30 @@ namespace db_Film.ViewModel
 {
     class ViewMainWindow : NotifyModel
     {
-        string _typeName;
-        public string TypeName { get => _typeName; set { _typeName = ((TabItem)value).Header.ToString(); RaiseEvent(nameof(TypeName)); } }
+        string _typeNameString;
+        public object TypeName { get => _typeNameString; set { _typeNameString = ((TabItem)value).Header.ToString(); RaiseEvent(nameof(TypeName)); } }
+        // Я хз как правильно это все привести
 
         public ObservableCollection<Film> Films { get; set; }
         public ObservableCollection<Film> Serials { get; set; }
         public ObservableCollection<Film> ANIME { get; set; }
 
-        public ObservableCollection<Dick> Genre { get; set; }
-        public ObservableCollection<Dick> Country { get; set; }
-        public ObservableCollection<Dick> Producer { get; set; }
+        public ObservableCollection<Dick> LGenre { get; set; }
+        public ObservableCollection<Dick> LCountry { get; set; }
+        public ObservableCollection<Dick> LProducer { get; set; }
+        public ObservableCollection<Dick> LAgeRate { get; set; }
+
 
         Film _edit;
         public Film EditFilm { get { return _edit; } set { _edit = value; RaiseEvent(nameof(EditFilm)); } }
 
         public CustomCommand<string> OpenSmt { get; set; }
         public CustomCommand<Film> ButtonEdit { get; set; }
-        public CustomCommand<Poopy> Save { get; set; }
+        public CustomCommand<Film> FindIndex { get; set; }
+
+        public CustomCommand<string> Save { get; set; }
+        public CustomCommand<Poopy> DropIt { get; set; }
+
 
         public ViewMainWindow()
         {
@@ -40,14 +47,25 @@ namespace db_Film.ViewModel
             ANIME = new ObservableCollection<Film>(FilmSQL.GetFilm("3"));
             Data.ANIME = ANIME;
 
-            Genre = new ObservableCollection<Dick>(DickSQL.GetDick("genre"));
-            Data.Genre = Genre;
-            Country = new ObservableCollection<Dick>(DickSQL.GetDick("country"));
-            Data.Country = Country;
-            Producer = new ObservableCollection<Dick>(DickSQL.GetDick("producer"));
-            Data.Producer = Producer;
+            LGenre = new ObservableCollection<Dick>(DickSQL.GetDick("genre"));
+            Data.Genre = LGenre;
+            LCountry = new ObservableCollection<Dick>(DickSQL.GetDick("country"));
+            Data.Country = LCountry;
+            LProducer = new ObservableCollection<Dick>(DickSQL.GetDick("producer"));
+            Data.Producer = LProducer;
+            LAgeRate = new ObservableCollection<Dick>(DickSQL.GetDick("agerate"));
+            Data.AgeRate= LAgeRate;
 
-            Save = new CustomCommand<Poopy>((s) => { EditFilm = null;  });
+
+            FindIndex = new CustomCommand<Film>(
+                (s) =>
+                {
+                    
+                });
+
+
+            Save = new CustomCommand<string>(
+                (s) => { EditFilm = null; });
 
 
 
@@ -65,6 +83,12 @@ namespace db_Film.ViewModel
             ButtonEdit = new CustomCommand<Film>((film) => {
                 EditFilm = film;
             });
+
+            DropIt = new CustomCommand<Poopy>(
+                (s) =>
+                {
+
+                });
         }
 
     }

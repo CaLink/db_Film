@@ -19,6 +19,8 @@ namespace db_Film.Model
         static public ObservableCollection<Dick> Genre { get; set; }
         static public ObservableCollection<Dick> Country { get; set; }
         static public ObservableCollection<Dick> Producer { get; set; }
+        static public ObservableCollection<Dick> AgeRate{ get; set; }
+
 
 
 

@@ -46,16 +46,22 @@ namespace db_Film.View
             //AddEditor.Width = new GridLength(0);
         }
         
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
         }
 
-        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            fName.Text = null;
+            fProducer.SelectedIndex = -1;
+            fYear.Text = null;
+            fCountry.SelectedIndex = -1;
+            fAgeRate.SelectedIndex = -1;
+            fGenre.SelectedIndex = -1;
+            fScore.SelectedIndex = -1;
+        }
     }
 }

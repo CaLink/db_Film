@@ -15,6 +15,9 @@ namespace db_Film.ViewModel
 
         public ObservableCollection<DickView> ListDicks { get; set; } = new ObservableCollection<DickView>();
 
+        Dick _editDickItem;
+        public Dick EditDickItem { get { return _editDickItem; } set { _editDickItem = value; RaiseEvent(nameof(EditDickItem)); } }
+
         public ViewDick()
         {
             

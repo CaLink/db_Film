@@ -25,6 +25,8 @@ namespace db_Film.ViewModel
         public ObservableCollection<Dick> LCountry { get; set; }
         public ObservableCollection<Dick> LProducer { get; set; }
         public ObservableCollection<Dick> LAgeRate { get; set; }
+        public ObservableCollection<Dick> LType{ get; set; }
+
 
 
         Film _edit;
@@ -55,6 +57,8 @@ namespace db_Film.ViewModel
             Data.Producer = LProducer;
             LAgeRate = new ObservableCollection<Dick>(DickSQL.GetDick("agerate"));
             Data.AgeRate= LAgeRate;
+            LType = new ObservableCollection<Dick>(DickSQL.GetDick("type"));
+            Data.Type = LType;
 
 
             FindIndex = new CustomCommand<Film>(

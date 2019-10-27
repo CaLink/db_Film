@@ -26,16 +26,19 @@
                     <ListView.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Edit" Click="Open_Edit" Command="{Binding ButtonEdit}" CommandParameter="{Binding ElementName=listFilms, Path=SelectedItem}"/>
+                            <MenuItem Header="Add" Click="Open_Add"  Command="{Binding ButtonAdd}"/>
+                            <MenuItem Header="Del" Command="{Binding ButtonAdd}"/>
+
                         </ContextMenu>
                     </ListView.ContextMenu>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                            <GridViewColumn Header="Producer" DisplayMemberBinding="{Binding Producer}" />
+                            <GridViewColumn Header="Producer" DisplayMemberBinding="{Binding Producer.Name}" />
                             <GridViewColumn Header="Year" DisplayMemberBinding="{Binding Year}" />
-                            <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre}" />
-                            <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country}" />
-                            <GridViewColumn Header="Age Rate" DisplayMemberBinding="{Binding AgeRate}" />
+                            <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre.Name}" />
+                            <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country.Name}" />
+                            <GridViewColumn Header="Age Rate" DisplayMemberBinding="{Binding AgeRate.Name}" />
                             <GridViewColumn Header="Score" DisplayMemberBinding="{Binding Score}" />
                         </GridView>
                     </ListView.View>
@@ -52,11 +55,11 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                            <GridViewColumn Header="Producer" DisplayMemberBinding="{Binding Producer}" />
+                            <GridViewColumn Header="Producer" DisplayMemberBinding="{Binding Producer.Name}" />
                             <GridViewColumn Header="Year" DisplayMemberBinding="{Binding Year}" />
-                            <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre}" />
-                            <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country}" />
-                            <GridViewColumn Header="Age Rate" DisplayMemberBinding="{Binding AgeRate}" />
+                            <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre.Name}" />
+                            <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country.Name}" />
+                            <GridViewColumn Header="Age Rate" DisplayMemberBinding="{Binding AgeRate.Name}" />
                             <GridViewColumn Header="Score" DisplayMemberBinding="{Binding Score}" />
                         </GridView>
                     </ListView.View>
@@ -74,11 +77,11 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                            <GridViewColumn Header="Producer" DisplayMemberBinding="{Binding Producer}" />
+                            <GridViewColumn Header="Producer" DisplayMemberBinding="{Binding Producer.Name}" />
                             <GridViewColumn Header="Year" DisplayMemberBinding="{Binding Year}" />
-                            <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre}" />
-                            <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country}" />
-                            <GridViewColumn Header="Age Rate" DisplayMemberBinding="{Binding AgeRate}" />
+                            <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre.Name}" />
+                            <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country.Name}" />
+                            <GridViewColumn Header="Age Rate" DisplayMemberBinding="{Binding AgeRate.Name}" />
                             <GridViewColumn Header="Score" DisplayMemberBinding="{Binding Score}" />
                         </GridView>
                     </ListView.View>
@@ -91,10 +94,6 @@
                 <MenuItem Header="Export" Command="{Binding ButtonExport}"/>
                 <MenuItem Header="Import" Command="{Binding ButtonImport}"/>
                 <MenuItem Header="Exit" Click="MenuItem_Click"/>
-            </MenuItem>
-            <MenuItem Header="Object">
-                <MenuItem Header="Add" Click="Open_Add"  Command="{Binding ButtonAdd}"/>
-                <MenuItem Header="Edit" Click="Open_Edit" Command="{Binding ButtonEdit}" CommandParameter="{Binding ElementName=listFilms, Path=SelectedItem}"/>
             </MenuItem>
             <MenuItem Header="Dictionary" CommandParameter="dickpick" Command="{Binding OpenSmt}"/>
             <MenuItem Header="Abort" CommandParameter="Abort" Command="{Binding OpenSmt}"/>
@@ -123,7 +122,7 @@
 
                 </Grid.ColumnDefinitions>
                 <TextBlock MinWidth="75" Text="Producer: " Grid.Column="0" Margin="0 0 0 5"/>
-                <ComboBox MinWidth="80" x:Name="fProducer" ItemsSource="{Binding Producer}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
+                <ComboBox MinWidth="80" x:Name="fProducer" ItemsSource="{Binding LProducer}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
 
             </Grid>
             <Grid>
@@ -142,7 +141,7 @@
 
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="County: " Grid.Column="0" Margin="0 0 0 5"/>
-                <ComboBox x:Name="fCountry" ItemsSource="{Binding Country}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
+                <ComboBox x:Name="fCountry" ItemsSource="{Binding LCountry}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
 
             </Grid>
             <Grid>
@@ -152,7 +151,7 @@
 
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="AgeRate: " Grid.Column="0" Margin="0 0 0 5"/>
-                <ComboBox x:Name="fAgeRate" ItemsSource="{Binding AgeRate}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
+                <ComboBox x:Name="fAgeRate" ItemsSource="{Binding LAgeRate}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
 
             </Grid>
             <Grid>
@@ -161,7 +160,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Genre: " Grid.Column="0"  Margin="0 0 0 5" />
-                <ComboBox x:Name="fGenre" ItemsSource="{Binding Genre}" DisplayMemberPath="Name" Grid.Column="1"  Margin="0 0 0 5"/>
+                <ComboBox x:Name="fGenre" ItemsSource="{Binding LGenre}" DisplayMemberPath="Name" Grid.Column="1"  Margin="0 0 0 5"/>
 
             </Grid>
             <Grid>
@@ -212,12 +211,10 @@
                         <ColumnDefinition Width="Auto" MinWidth="30"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Type: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <ComboBox  Grid.Column="1" x:Name="sType" SelectedIndex="{Binding FindIndex}" Margin="0 0 0 5">
-                        <!--Понять нужно SelectedValue и SelectedValuePath-->
-                        <ComboBoxItem Content="Film" />
-                        <ComboBoxItem Content="Serial"/>
-                        <ComboBoxItem Content="ANIME"/>
-                    </ComboBox>
+                    <ComboBox  Grid.Column="1" x:Name="sType" ItemsSource="{Binding Source={StaticResource View}, Path=LType}" DisplayMemberPath="Name" SelectedItem="{Binding Type}" Margin="0 0 0 5"/>
+                    <!--Понять нужно SelectedValue и SelectedValuePath-->
+
+
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -235,9 +232,7 @@
                         <ColumnDefinition Width="Auto" MinWidth="30"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock MinWidth="100" Text="Producer: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LProducer}" DisplayMemberPath="Name"  Grid.Column="1"  Margin="0 0 0 5" 
-                              SelectedIndex="{Binding Source={StaticResource View}, Path=FindIndex}"
-                              SelectedValue="{Binding Producer}"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LProducer}" DisplayMemberPath="Name" SelectedItem="{Binding Producer}" Grid.Column="1"  Margin="0 0 0 5"/>
 
                     <Button Grid.Column="3" Content="•"  Margin="5 0 5 5"/>
                 </Grid>
@@ -256,8 +251,8 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="Auto" MinWidth="30"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="County: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <ComboBox  ItemsSource="{Binding Source={StaticResource View}, Path=LCountry}" DisplayMemberPath="Name" Grid.Column="1" SelectedIndex="0" Margin="0 0 0 5">
+                    <TextBlock Text="Country: " Grid.Column="0" Margin="0 0 0 5"/>
+                    <ComboBox  ItemsSource="{Binding Source={StaticResource View}, Path=LCountry}" DisplayMemberPath="Name" SelectedItem="{Binding Country}" Grid.Column="1" SelectedIndex="0" Margin="0 0 0 5">
 
                     </ComboBox>
                     <Button Grid.Column="3" Content="•"  Margin="5 0 5 5"/>
@@ -269,7 +264,7 @@
                         <ColumnDefinition Width="Auto" MinWidth="30"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="AgeRate: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LAgeRate}" DisplayMemberPath="Name" Grid.Column="1" SelectedIndex="0" Margin="0 0 0 5"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LAgeRate}" DisplayMemberPath="Name" SelectedItem="{Binding AgeRate}" Grid.Column="1" SelectedIndex="0"  Margin="0 0 0 5"/>
 
                 </Grid>
                 <Grid>
@@ -279,7 +274,7 @@
                         <ColumnDefinition Width="Auto" MinWidth="30"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Genre: " Grid.Column="0"  Margin="0 0 0 5" />
-                    <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LGenre}" DisplayMemberPath="Name" Grid.Column="1" SelectedIndex="0"  Margin="0 0 0 5"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LGenre}" DisplayMemberPath="Name" SelectedItem="{Binding Genre}" Grid.Column="1" SelectedIndex="0"  Margin="0 0 0 5"/>
 
 
                     <Button Grid.Column="3" Content="•"  Margin="5 0 5 5"/>
@@ -291,7 +286,7 @@
                         <ColumnDefinition Width="Auto" MinWidth="30"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Score: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <ComboBox Text="CurrentTab" Grid.Column="1" SelectedIndex="0" Margin="0 0 0 5">
+                    <ComboBox Text="CurrentTab" Grid.Column="1" SelectedIndex="0" SelectedValue="{Binding Score}" Margin="0 0 0 5">
                         <!--Добавить цветовую градацию-->
                         <ComboBoxItem Content="Not Viewed"/>
                         <TextBlock Text="0"/>

@@ -11,14 +11,14 @@ namespace db_Film.Model
     {
         private int id;
         private string name;
-        private string producer;
+        private Dick producer;
         private string year;
-        private string country;
-        private string ageRate;
-        private string genre;
+        private Dick country;
+        private Dick ageRate;
+        private Dick genre;
         private string score;
         private string comment;
-        private string type;
+        private Dick type;
        
         public int Id
         {
@@ -30,7 +30,7 @@ namespace db_Film.Model
             get => name;
             set { name = value; RaiseEvent(nameof(Name)); }
         }
-        public string Producer
+        public Dick Producer
         {
             get => producer;
             set { producer = value; RaiseEvent(nameof(Producer)); }
@@ -40,17 +40,17 @@ namespace db_Film.Model
             get => year;
             set { year = value; RaiseEvent(nameof(Year)); }
         }
-        public string Country
+        public Dick Country
         {
             get => country;
             set { country = value; RaiseEvent(nameof(Country)); }
         }
-        public string AgeRate
+        public Dick AgeRate
         {
             get => ageRate;
             set { ageRate = value; RaiseEvent(nameof(AgeRate)); }
         }
-        public string Genre
+        public Dick Genre
         {
             get => genre;
             set { genre = value; RaiseEvent(nameof(Genre)); }
@@ -65,7 +65,7 @@ namespace db_Film.Model
             get => comment;
             set { comment = value; RaiseEvent(nameof(Comment)); }
         }
-        public string Type
+        public Dick Type
         {
             get => type;
             set { type = value; RaiseEvent(nameof(Type)); }

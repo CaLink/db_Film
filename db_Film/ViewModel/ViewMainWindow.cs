@@ -18,8 +18,13 @@ namespace db_Film.ViewModel
         // Я хз как правильно это все привести
 
         public ObservableCollection<Film> Films { get; set; }
+        public ObservableCollection<Film> FFilms { get; set; }
+
         public ObservableCollection<Film> Serials { get; set; }
+        public ObservableCollection<Film> FSerials { get; set; }
+
         public ObservableCollection<Film> ANIME { get; set; }
+        public ObservableCollection<Film> FANIME { get; set; }
 
         public ObservableCollection<Dick> LGenre { get; set; }
         public ObservableCollection<Dick> LCountry { get; set; }
@@ -34,9 +39,13 @@ namespace db_Film.ViewModel
 
         public CustomCommand<string> OpenSmt { get; set; }
         public CustomCommand<Film> ButtonEdit { get; set; }
+        public CustomCommand<Film> ButtonAdd { get; set; }
+        public CustomCommand<Film> ButtonRemove { get; set; }
+
         public CustomCommand<Film> FindIndex { get; set; }
 
         public CustomCommand<string> Save { get; set; }
+        public CustomCommand<Film> FiFnd { get; set; }
         public CustomCommand<Poopy> DropIt { get; set; }
 
 
@@ -69,7 +78,24 @@ namespace db_Film.ViewModel
 
 
             Save = new CustomCommand<string>(
-                (s) => { EditFilm = null; });
+                (s) => 
+                {
+                    switch (/* А где взять*/)
+                    {
+                        case "Save": { EditFilm = null; break; }
+                        case "Add":{
+                                    switch (EditFilm.Type.Name)
+                                    {
+                                        case "Film":   { Films.Add(EditFilm); break; }
+                                        case "Serial": { Serials.Add(EditFilm); break; }
+                                        case "ANIME":  { Films.Add(EditFilm); break; }
+                                    }
+                                    EditFilm = null; break; 
+                                    }
+
+                    }
+
+                });
 
 
 
@@ -88,10 +114,36 @@ namespace db_Film.ViewModel
                 EditFilm = film;
             });
 
+            ButtonAdd = new CustomCommand<Film>((film) =>
+                {
+                    Film NewFilm = new Film();
+                    EditFilm = NewFilm;
+                    //Тут нужно еще ID докинуть фильму
+                });
+
+            ButtonRemove = new CustomCommand<Film>((film) =>
+            {
+                switch (film.Type.Name)
+                {
+                    case "Film": {Films.Remove(film); break;}
+                    case "Serial": {Serials.Remove(film); break;}
+                    case "ANIME": {Films.Remove(film); break; }
+                }
+            }, ()=> EditFilm != null);
+            // Предупредить еще БД нужно 
+
+
             DropIt = new CustomCommand<Poopy>(
                 (s) =>
                 {
 
+                });
+
+            FiFnd = new CustomCommand<Film>(
+                (s) => 
+                {
+                    // Вероятно делать событине на привязку к FFilm а тут его как-то заполнить нужно
+                    // А тут придумать, как заполнить тот самый FFilm
                 });
         }
 

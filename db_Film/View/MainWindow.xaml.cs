@@ -33,11 +33,11 @@ namespace db_Film.View
             SaveButton.Content = "Add";
         }
 
-        private void Open_Edit(object sender, RoutedEventArgs e)
+        public void Open_Edit(object sender, RoutedEventArgs e)
         {
             //MainTab.Width = new GridLength(MainTab.MinWidth);
             //AddEditor.Width = new GridLength(AddEditor.MaxWidth);
-            SaveButton.Content = "Edit";
+            SaveButton.Content = "Save";
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)

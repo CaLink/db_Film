@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace db_Film
 {
-     internal class MySQL
+    internal class MySQL
     {
         protected static MySqlConnection connection;
 
@@ -64,5 +64,31 @@ namespace db_Film
                 return false;
             }
         }
+
+        protected int ShowNextID(string table)
+        {
+            int result = -1;
+            string query = $"show table status where `Name` = '{table}'";
+            if (OpenConnection())
+            {
+                using (MySqlCommand mc = new MySqlCommand(query, connection))
+                using (MySqlDataReader dr = mc.ExecuteReader())
+                    while (dr.Read())
+                        result = dr.GetInt32("Auto_increment");
+                CloseConnection();
+            }
+            return result;
+        }
+
+        protected void ExecureNonQuery(string query)
+        {
+            if (OpenConnection())
+            {
+                using (MySqlCommand mc = new MySqlCommand(query, connection))
+                    mc.ExecuteNonQuery();
+                CloseConnection();
+            }
+        }
+
     }
 }

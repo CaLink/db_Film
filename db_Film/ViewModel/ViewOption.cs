@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using db_Film.Model;
+using db_Film.View;
 
 namespace db_Film.ViewModel
 {
@@ -29,6 +30,7 @@ namespace db_Film.ViewModel
                 {
                     MySQL.SetUpMySqlConnection();
                     Properties.Settings.Default.Save();
+                    new MainWindow().ShowDialog();
                     
                 });
 

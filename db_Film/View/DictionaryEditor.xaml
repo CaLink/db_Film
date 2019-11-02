@@ -17,24 +17,36 @@
         </Grid.RowDefinitions>
         <GroupBox Margin="7" Grid.Row="0">
             <GroupBox.Header>
-                <ComboBox ItemsSource="{Binding ListDicks}" SelectedItem="{Binding SelectedDick}" DisplayMemberPath="Name" SelectedIndex="0"/> 
+                <ComboBox ItemsSource="{Binding ListDicks}" SelectedItem="{Binding SelectedDick}" DisplayMemberPath="Name" SelectedIndex="0"/>
             </GroupBox.Header>
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23*"/>
+                    <ColumnDefinition Width="243*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ListView Grid.Row="0" Margin="10" ItemsSource="{Binding SelectedDick.Array}" HorizontalContentAlignment="Stretch" DataContext="{StaticResource View}" SelectedItem="{Binding EditDickItem}">
+                <ListView Grid.Row="0" Margin="10" ItemsSource="{Binding SelectedDick.Array}" HorizontalContentAlignment="Stretch" DataContext="{StaticResource View}" SelectedItem="{Binding EditDickItem}" Grid.ColumnSpan="2">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                         </GridView>
                     </ListView.View>
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Add" Command="{Binding Add}"/>
+                            <MenuItem Header="Del" Command="{Binding Del}" CommandParameter="{Binding EditFilm}"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                 </ListView>
-                <TextBox Grid.Row="1" DataContext="{Binding EditDickItem}" Text="{Binding Name}"/>
+                <TextBox Grid.Row="1" DataContext="{Binding EditDickItem}" Text="{Binding Name}" Grid.ColumnSpan="2"/>
+                <Button Grid.Row="2" Content="Save" Command="{Binding Save}" Grid.ColumnSpan="2" />
             </Grid>
         </GroupBox>
-        
+
         <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <Button Content="Close" Margin="0 0 0 5" Padding="5 2 5 2" Click="Button_Click"/>
         </StackPanel>

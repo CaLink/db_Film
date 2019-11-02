@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:db_Film"
         xmlns:View="clr-namespace:db_Film.ViewModel"
+        xmlns:s="clr-namespace:System.Collections;assembly=mscorlib"
+        xmlns:p="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="870" MaxWidth="870" MinWidth="870" MinHeight="450">
     <Window.Resources>
         <View:ViewMainWindow x:Key="View"/>
     </Window.Resources>
-    <Grid DataContext="{StaticResource View}">
+    <Grid x:Name="gridContext" DataContext="{StaticResource View}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MaxWidth="150"/>
             <ColumnDefinition Width="*"/>
@@ -21,57 +23,54 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TabControl x:Name="Tab" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" SelectedValue="{Binding TypeName}">
-            <TabItem Header="Film" >
-                <ListView x:Name="listFilms" ItemsSource="{Binding Films}" DataContext="{StaticResource View}"  SelectedItem="{Binding EditFilm}">
+            <TabItem Header="Film">
+                <ListView x:Name="listFilms" GridViewColumnHeader.Click="Sort" ItemsSource="{Binding Films}" DataContext="{StaticResource View}"  SelectedItem="{Binding EditFilm}" Margin="0,-1,0,1">
                     <ListView.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Edit" Click="Open_Edit" Command="{Binding ButtonEdit}" CommandParameter="{Binding ElementName=listFilms, Path=SelectedItem}"/>
                             <MenuItem Header="Add" Click="Open_Add"  Command="{Binding ButtonAdd}"/>
                             <MenuItem Header="Del" Command="{Binding ButtonRemove}" CommandParameter="{Binding EditFilm}"/>
-
                         </ContextMenu>
                     </ListView.ContextMenu>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                             <GridViewColumn Header="Producer" DisplayMemberBinding="{Binding Producer.Name}" />
                             <GridViewColumn Header="Year" DisplayMemberBinding="{Binding Year}" />
                             <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre.Name}" />
                             <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country.Name}" />
-                            <GridViewColumn Header="Age Rate" DisplayMemberBinding="{Binding AgeRate.Name}" />
+                            <GridViewColumn Header="AgeRate" DisplayMemberBinding="{Binding AgeRate.Name}" />
                             <GridViewColumn Header="Score" DisplayMemberBinding="{Binding Score}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
             </TabItem>
-            <!--Нужно засунуть в TabItem по листбоксу но изменения работали только тогда когда вкладка активна-->
             <TabItem Header="Serial">
-                <ListView x:Name="listSerial" ItemsSource="{Binding Serials}" DataContext="{StaticResource View}"  SelectedItem="{Binding EditFilm}">
+                <ListView GridViewColumnHeader.Click="Sort"  x:Name="listSerial" ItemsSource="{Binding Serials}" DataContext="{StaticResource View}"  SelectedItem="{Binding EditFilm}">
                     <ListView.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Edit" Click="Open_Edit" Command="{Binding ButtonEdit}" CommandParameter="{Binding ElementName=listSerial, Path=SelectedItem}"/>
+                            <MenuItem Header="Add" Click="Open_Add"  Command="{Binding ButtonAdd}"/>
+                            <MenuItem Header="Del" Command="{Binding ButtonRemove}" CommandParameter="{Binding EditFilm}"/>
                         </ContextMenu>
                     </ListView.ContextMenu>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                             <GridViewColumn Header="Producer" DisplayMemberBinding="{Binding Producer.Name}" />
                             <GridViewColumn Header="Year" DisplayMemberBinding="{Binding Year}" />
                             <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre.Name}" />
                             <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country.Name}" />
-                            <GridViewColumn Header="Age Rate" DisplayMemberBinding="{Binding AgeRate.Name}" />
+                            <GridViewColumn Header="AgeRate" DisplayMemberBinding="{Binding AgeRate.Name}" />
                             <GridViewColumn Header="Score" DisplayMemberBinding="{Binding Score}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
             </TabItem>
             <TabItem Header="ANIME">
-                <ListView x:Name="listANIME" ItemsSource="{Binding ANIME}" DataContext="{StaticResource View}" SelectedItem="{Binding EditFilm}">
+                <ListView x:Name="listANIME" GridViewColumnHeader.Click="Sort" ItemsSource="{Binding ANIME}" DataContext="{StaticResource View}" SelectedItem="{Binding EditFilm}">
                     <ListView.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Edit" Click="Open_Edit"  />
-                            <!--Command="{Binding ButtonEdit}" CommandParameter="{Binding ElementName=listANIME, Path=SelectedItem}"-->
-
+                            <MenuItem Header="Add" Click="Open_Add"  Command="{Binding ButtonAdd}"/>
+                            <MenuItem Header="Del" Command="{Binding ButtonRemove}" CommandParameter="{Binding EditFilm}"/>
                         </ContextMenu>
                     </ListView.ContextMenu>
                     <ListView.View>
@@ -81,7 +80,7 @@
                             <GridViewColumn Header="Year" DisplayMemberBinding="{Binding Year}" />
                             <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre.Name}" />
                             <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country.Name}" />
-                            <GridViewColumn Header="Age Rate" DisplayMemberBinding="{Binding AgeRate.Name}" />
+                            <GridViewColumn Header="AgeRate" DisplayMemberBinding="{Binding AgeRate.Name}" />
                             <GridViewColumn Header="Score" DisplayMemberBinding="{Binding Score}" />
                         </GridView>
                     </ListView.View>
@@ -90,22 +89,22 @@
         </TabControl>
         <Menu Grid.ColumnSpan="4">
             <MenuItem Header="File">
-                <MenuItem Header="Connect" CommandParameter="connect"  Command="{Binding OpenSmt}"/>
-                <MenuItem Header="Export" Command="{Binding ButtonExport}"/>
-                <MenuItem Header="Import" Command="{Binding ButtonImport}"/>
+                <MenuItem Header="Export" Command="{Binding Export}"/>
+                <MenuItem Header="Save To" Command="{Binding DumpTo}"/>
+                <MenuItem Header="Load From" Command="{Binding DumpFrom}"/>
                 <MenuItem Header="Exit" Click="MenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Dictionary" CommandParameter="dickpick" Command="{Binding OpenSmt}"/>
             <MenuItem Header="Abort" CommandParameter="Abort" Command="{Binding OpenSmt}"/>
         </Menu>
-        <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" MaxWidth="200">
+        <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" MaxWidth="200" DataContext="{Binding FindFilm}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Type: " Grid.Column="0" Margin="0 1 0 5"/>
-                <TextBlock  Text="{Binding TypeName}" Grid.Column="1" Margin="0 1 0 5"/>
+                <TextBlock  Text="{Binding Source={StaticResource View}, Path=TypeName}" Grid.Column="1" Margin="0 1 0 5"/>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -113,7 +112,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Name: " Grid.Column="0"  Margin="0 0 0 5"/>
-                <TextBox x:Name="fName" Grid.Column="1"  Margin="0 0 0 5"/>
+                <TextBox x:Name="fName" Text="{Binding Name}" Grid.Column="1"  Margin="0 0 0 5"/>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -122,7 +121,7 @@
 
                 </Grid.ColumnDefinitions>
                 <TextBlock MinWidth="75" Text="Producer: " Grid.Column="0" Margin="0 0 0 5"/>
-                <ComboBox MinWidth="80" x:Name="fProducer" ItemsSource="{Binding LProducer}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
+                <ComboBox MinWidth="75" MaxWidth="75" x:Name="fProducer" ItemsSource="{Binding Source={StaticResource View}, Path=LProducer}" SelectedItem="{Binding Producer}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
 
             </Grid>
             <Grid>
@@ -132,7 +131,7 @@
 
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Year: " Grid.Column="0" Margin="0 0 0 5"/>
-                <TextBox  x:Name="fYear" Grid.Column="1" Margin="0 0 0 5"/>
+                <TextBox  x:Name="fYear" Text="{Binding Year}" Grid.Column="1" Margin="0 0 0 5"/>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -141,7 +140,7 @@
 
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="County: " Grid.Column="0" Margin="0 0 0 5"/>
-                <ComboBox x:Name="fCountry" ItemsSource="{Binding LCountry}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
+                <ComboBox x:Name="fCountry" ItemsSource="{Binding Source={StaticResource View}, Path=LCountry}" SelectedItem="{Binding Country}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
 
             </Grid>
             <Grid>
@@ -151,7 +150,7 @@
 
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="AgeRate: " Grid.Column="0" Margin="0 0 0 5"/>
-                <ComboBox x:Name="fAgeRate" ItemsSource="{Binding LAgeRate}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
+                <ComboBox x:Name="fAgeRate" ItemsSource="{Binding Source={StaticResource View}, Path=LAgeRate}" SelectedItem="{Binding AgeRate}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
 
             </Grid>
             <Grid>
@@ -160,7 +159,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Genre: " Grid.Column="0"  Margin="0 0 0 5" />
-                <ComboBox x:Name="fGenre" ItemsSource="{Binding LGenre}" DisplayMemberPath="Name" Grid.Column="1"  Margin="0 0 0 5"/>
+                <ComboBox x:Name="fGenre" ItemsSource="{Binding Source={StaticResource View}, Path=LGenre}" SelectedItem="{Binding Genre}" DisplayMemberPath="Name" Grid.Column="1"  Margin="0 0 0 5"/>
 
             </Grid>
             <Grid>
@@ -169,26 +168,26 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Score: " Grid.Column="0" Margin="0 0 0 5"/>
-                <ComboBox x:Name="fScore" Text="CurrentTab" Grid.Column="1" Margin="0 0 0 5">
+                <ComboBox x:Name="fScore" Grid.Column="1" SelectedIndex="0" SelectedValue="{Binding Score}" SelectedValuePath="Text" Margin="0 0 0 5">
                     <!--Добавить цветовую градацию-->
-                    <ComboBoxItem Content="Not Viewed"/>
-                    <ComboBoxItem Content="0"/>
-                    <ComboBoxItem Content="1"/>
-                    <ComboBoxItem Content="2"/>
-                    <ComboBoxItem Content="3"/>
-                    <ComboBoxItem Content="4"/>
-                    <ComboBoxItem Content="5"/>
-                    <ComboBoxItem Content="6"/>
-                    <ComboBoxItem Content="7"/>
-                    <ComboBoxItem Content="8"/>
-                    <ComboBoxItem Content="9"/>
-                    <ComboBoxItem Content="10"/>
+                    <TextBlock Text="Not Viewed"/>
+                    <TextBlock Text="0"/>
+                    <TextBlock Text="1"/>
+                    <TextBlock Text="2"/>
+                    <TextBlock Text="3"/>
+                    <TextBlock Text="4"/>
+                    <TextBlock Text="5"/>
+                    <TextBlock Text="6"/>
+                    <TextBlock Text="7"/>
+                    <TextBlock Text="8"/>
+                    <TextBlock Text="9"/>
+                    <TextBlock Text="10"/>
                 </ComboBox>
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
-            <Button Content="Drop" Command="{Binding Fi}" Grid.Row="1" VerticalAlignment="Bottom" Margin="7" Click="Button_Click"/>
-            <Button Content="Find" Grid.Row="1" VerticalAlignment="Bottom" Margin="7"/>
+            <Button Content="Drop/Refresh" Command="{Binding DropIt}" Grid.Row="1" VerticalAlignment="Bottom" Margin="7" Click="Button_Click"/>
+            <Button Content="Find" Command="{Binding FindIt}" Grid.Row="1" VerticalAlignment="Bottom" Margin="7"/>
         </StackPanel>
 
         <!--<GridSplitter Grid.Column="2" Grid.RowSpan="2" ShowsPreview="False" Width="3"
@@ -286,9 +285,9 @@
                         <ColumnDefinition Width="Auto" MinWidth="30"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Score: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <ComboBox Text="CurrentTab" Grid.Column="1" SelectedIndex="0" SelectedValue="{Binding Score}" Margin="0 0 0 5">
+                    <ComboBox Grid.Column="1" SelectedIndex="0" SelectedValue="{Binding Score}" SelectedValuePath="Text" Margin="0 0 0 5">
                         <!--Добавить цветовую градацию-->
-                        <ComboBoxItem Content="Not Viewed"/>
+                        <TextBlock Text="Not Viewed"/>
                         <TextBlock Text="0"/>
                         <TextBlock Text="1"/>
                         <TextBlock Text="2"/>

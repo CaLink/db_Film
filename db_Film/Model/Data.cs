@@ -24,7 +24,6 @@ namespace db_Film.Model
 
 
 
-
         //public override object ProvideValue(IServiceProvider serviceProvider)
         //{
         //    return staticInstance;

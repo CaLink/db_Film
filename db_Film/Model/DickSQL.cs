@@ -27,5 +27,52 @@ namespace db_Film.Model
             }
             return result;
         }
+
+        public void InputDick(Dick dick, string tbl)
+        {
+            tbl = tbl.ToLower();
+            string quety = $"insert into tbl_{tbl} value(0,@b)";
+            if(OpenConnection())
+            {
+                using (MySqlCommand mc = new MySqlCommand(quety,connection))
+                {
+                    MySqlParameter p = new MySqlParameter("@b", MySqlDbType.String);
+                    p.Value = dick.Name;
+                    mc.Parameters.Add(p);
+
+                    mc.ExecuteNonQuery();
+                }
+
+                CloseConnection();
+            }
+        }
+
+        public void UpdateDick(Dick dick, string tbl)
+        {
+            tbl = tbl.ToLower();
+            string query = $"update tbl_{tbl} set Name = @b where id={dick.ID}";
+            if (OpenConnection())
+            {
+                using (MySqlCommand mc = new MySqlCommand(query, connection))
+                {
+                    MySqlParameter p = new MySqlParameter("@b", MySqlDbType.String);
+                    p.Value = dick.Name;
+                    mc.Parameters.Add(p);
+
+                    mc.ExecuteNonQuery();
+                }
+                CloseConnection();
+            }
+
+        }
+
+        public void OutputDick(Dick dick, string tbl)
+        {
+            tbl = tbl.ToLower();
+            string query = $"delete from tbl_{tbl} where id={dick.ID}";
+            ExecureNonQuery(query);
+        }
+
+
     }
 }

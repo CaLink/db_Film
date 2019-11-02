@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -24,6 +25,8 @@ namespace db_Film.View
         public MainWindow()
         {
             InitializeComponent();
+            listSerial.Items.IsLiveSorting = true;
+            listFilms.Items.IsLiveSorting = true;
         }
 
         private void Open_Add(object sender, RoutedEventArgs e)
@@ -62,6 +65,21 @@ namespace db_Film.View
             fAgeRate.SelectedIndex = -1;
             fGenre.SelectedIndex = -1;
             fScore.SelectedIndex = -1;
+        }
+
+        private void Sort(object sender, RoutedEventArgs e)
+        {
+            string header = ((GridViewColumnHeader)e.OriginalSource).Content.ToString();
+            ListView view = (ListView)sender;
+            ((ViewModel.ViewMainWindow)gridContext.DataContext).RaiseSort(header, view.ItemsSource);
+           
+            /*view.Items.SortDescriptions.Clear();
+            if (header == "Name" || header == "Year" || header == "Score")
+                view.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription(header.ToString(), System.ComponentModel.ListSortDirection.Descending));
+            else
+                view.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription(header + ".Name", System.ComponentModel.ListSortDirection.Descending));
+            */
+
         }
     }
 }

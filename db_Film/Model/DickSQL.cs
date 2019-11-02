@@ -12,7 +12,7 @@ namespace db_Film.Model
         static public List<Dick> GetDick(string dick)
         {
             List<Dick> result = new List<Dick>();
-            string queryMain = $"SELECT tbl_{dick}.id, tbl_{dick}.`Name` FROM tbl_{dick}";
+            string queryMain = $"SELECT tbl_{dick}.id, tbl_{dick}.`Name` FROM tbl_{dick} ORDER BY `Name`";
             if (OpenConnection())
             {
                 using (MySqlCommand mc = new MySqlCommand(queryMain, connection))
@@ -31,6 +31,7 @@ namespace db_Film.Model
         public void InputDick(Dick dick, string tbl)
         {
             tbl = tbl.ToLower();
+            dick.ID = ShowNextID($"tbl_{tbl}"); 
             string quety = $"insert into tbl_{tbl} value(0,@b)";
             if(OpenConnection())
             {

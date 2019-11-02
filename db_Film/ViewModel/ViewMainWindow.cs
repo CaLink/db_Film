@@ -104,23 +104,6 @@ namespace db_Film.ViewModel
 
         public ViewMainWindow()
         {
-            /*Films = new ObservableCollection<Film>(FilmSQL.GetFilm("1"));
-            Data.Films = Films;
-            Serials = new ObservableCollection<Film>(FilmSQL.GetFilm("2"));
-            Data.Serials = Serials;
-            ANIME = new ObservableCollection<Film>(FilmSQL.GetFilm("3"));
-            Data.ANIME = ANIME;
-
-            LGenre = new ObservableCollection<Dick>(DickSQL.GetDick("genre"));
-            Data.Genre = LGenre;
-            LCountry = new ObservableCollection<Dick>(DickSQL.GetDick("country"));
-            Data.Country = LCountry;
-            LProducer = new ObservableCollection<Dick>(DickSQL.GetDick("producer"));
-            Data.Producer = LProducer;
-            LAgeRate = new ObservableCollection<Dick>(DickSQL.GetDick("agerate"));
-            Data.AgeRate = LAgeRate;
-            LType = new ObservableCollection<Dick>(DickSQL.GetDick("type"));
-            Data.Type = LType;*/
             SaS();
 
 
@@ -200,7 +183,7 @@ namespace db_Film.ViewModel
                     switch (s)
                     {
                         case "connect": { new Option().ShowDialog(); break; }
-                        case "dickpick": { new DictionaryEditor().ShowDialog(); break; }
+                        case "dickpick": { new DictionaryEditor().Show(); break; }
                         case "Abort": { new Abort().ShowDialog(); break; }
                     }
                 });
@@ -231,33 +214,6 @@ namespace db_Film.ViewModel
             DropIt = new CustomCommand<Poopy>(
                 (s) =>
                 {
-                    /*Films = new ObservableCollection<Film>(FilmSQL.GetFilm("1"));
-                    Data.Films = Films;
-                    Serials = new ObservableCollection<Film>(FilmSQL.GetFilm("2"));
-                    Data.Serials = Serials;
-                    ANIME = new ObservableCollection<Film>(FilmSQL.GetFilm("3"));
-                    Data.ANIME = ANIME;
-
-                    LGenre = new ObservableCollection<Dick>(DickSQL.GetDick("genre"));
-                    Data.Genre = LGenre;
-                    LCountry = new ObservableCollection<Dick>(DickSQL.GetDick("country"));
-                    Data.Country = LCountry;
-                    LProducer = new ObservableCollection<Dick>(DickSQL.GetDick("producer"));
-                    Data.Producer = LProducer;
-                    LAgeRate = new ObservableCollection<Dick>(DickSQL.GetDick("agerate"));
-                    Data.AgeRate = LAgeRate;
-                    LType = new ObservableCollection<Dick>(DickSQL.GetDick("type"));
-                    Data.Type = LType;
-
-                    RaiseEvent(nameof(Films));
-                    RaiseEvent(nameof(Serials));
-                    RaiseEvent(nameof(ANIME));
-
-                    RaiseEvent(nameof(LGenre));
-                    RaiseEvent(nameof(LCountry));
-                    RaiseEvent(nameof(LProducer)); 
-                    RaiseEvent(nameof(LAgeRate));
-                    RaiseEvent(nameof(LType));*/
                     SaS();
 
                     FindFilm = new Film();
@@ -446,8 +402,6 @@ namespace db_Film.ViewModel
             DumpTo = new CustomCommand<Poopy>(
                 (s) =>
                 {
-                    FileStream fs;
-
                     FolderBrowserDialog fbd = new FolderBrowserDialog();
                     if (fbd.ShowDialog() == DialogResult.OK)
                         MySQL.DumbTo(fbd.SelectedPath + "\\Dumb.sql");

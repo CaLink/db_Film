@@ -90,5 +90,35 @@ namespace db_Film
             }
         }
 
+        static public void DumbTo (string file)
+        {
+            if (OpenConnection())
+            {   
+                using (MySqlCommand mc = new MySqlCommand())
+                using (MySqlBackup mb = new MySqlBackup(mc))
+                {
+                    mc.Connection = connection;
+                    mb.ExportToFile(file);
+                }
+                    CloseConnection();
+                    
+            }
+        }
+
+        static public void DumbFrom(string file)
+        {
+            if (OpenConnection())
+            {
+                using (MySqlCommand mc = new MySqlCommand())
+                using (MySqlBackup mb = new MySqlBackup(mc))
+                {
+                    mc.Connection = connection;
+                    mb.ImportFromFile(file);
+                }
+                CloseConnection();
+
+            }
+        }
+
     }
 }

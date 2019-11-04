@@ -8,13 +8,13 @@
         xmlns:s="clr-namespace:System.Collections;assembly=mscorlib"
         xmlns:p="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="db_Film" Height="450" Width="870" MaxWidth="870" MinWidth="870" MinHeight="450">
+        Title="db_Film" Height="450" Width="1024"  MinWidth="900" MinHeight="450">
     <Window.Resources>
         <View:ViewMainWindow x:Key="View"/>
     </Window.Resources>
     <Grid x:Name="gridContext" DataContext="{StaticResource View}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MaxWidth="150"/>
+            <ColumnDefinition Width="Auto" MaxWidth="180"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto" MaxWidth="500" />
         </Grid.ColumnDefinitions>
@@ -97,7 +97,7 @@
             <MenuItem Header="Dictionary" CommandParameter="dickpick" Command="{Binding OpenSmt}"/>
             <MenuItem Header="Abort" CommandParameter="Abort" Command="{Binding OpenSmt}"/>
         </Menu>
-        <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" MaxWidth="200" DataContext="{Binding FindFilm}">
+        <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" MaxWidth="180" DataContext="{Binding FindFilm}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -105,67 +105,88 @@
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Type: " Grid.Column="0" Margin="0 1 0 5"/>
                 <TextBlock  Text="{Binding Source={StaticResource View}, Path=TypeName}" Grid.Column="1" Margin="0 1 0 5"/>
+                
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Name: " Grid.Column="0"  Margin="0 0 0 5"/>
                 <TextBox x:Name="fName" Text="{Binding Name}" Grid.Column="1"  Margin="0 0 0 5"/>
+                <Button Grid.Column="3" Content="•"  Margin="5 0 5 5" Click="SectorClear" CommandParameter="Name"/>
+
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+
 
                 </Grid.ColumnDefinitions>
                 <TextBlock MinWidth="75" Text="Producer: " Grid.Column="0" Margin="0 0 0 5"/>
                 <ComboBox MinWidth="75" MaxWidth="75" x:Name="fProducer" ItemsSource="{Binding Source={StaticResource View}, Path=LProducer}" SelectedItem="{Binding Producer}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
+                <Button Grid.Column="3" Content="•"  Margin="5 0 5 5" Click="SectorClear" CommandParameter="Producer"/>
 
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+
 
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Year: " Grid.Column="0" Margin="0 0 0 5"/>
                 <TextBox  x:Name="fYear" Text="{Binding Year}" Grid.Column="1" Margin="0 0 0 5"/>
+                <Button Grid.Column="3" Content="•"  Margin="5 0 5 5" Click="SectorClear" CommandParameter="Year"/>
+
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
 
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="County: " Grid.Column="0" Margin="0 0 0 5"/>
                 <ComboBox x:Name="fCountry" ItemsSource="{Binding Source={StaticResource View}, Path=LCountry}" SelectedItem="{Binding Country}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
+                <Button Grid.Column="3" Content="•"  Margin="5 0 5 5" Click="SectorClear" CommandParameter="Country"/>
+
 
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
 
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="AgeRate: " Grid.Column="0" Margin="0 0 0 5"/>
                 <ComboBox x:Name="fAgeRate" ItemsSource="{Binding Source={StaticResource View}, Path=LAgeRate}" SelectedItem="{Binding AgeRate}" DisplayMemberPath="Name" Grid.Column="1" Margin="0 0 0 5"/>
+                <Button Grid.Column="3" Content="•"  Margin="5 0 5 5" Click="SectorClear" CommandParameter="AgeRate"/>
 
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Genre: " Grid.Column="0"  Margin="0 0 0 5" />
                 <ComboBox x:Name="fGenre" ItemsSource="{Binding Source={StaticResource View}, Path=LGenre}" SelectedItem="{Binding Genre}" DisplayMemberPath="Name" Grid.Column="1"  Margin="0 0 0 5"/>
+                <Button Grid.Column="3" Content="•"  Margin="5 0 5 5" Click="SectorClear" CommandParameter="Genre"/>
 
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" MinWidth="30"/>
+
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Score: " Grid.Column="0" Margin="0 0 0 5"/>
                 <ComboBox x:Name="fScore" Grid.Column="1" SelectedIndex="0" SelectedValue="{Binding Score}" SelectedValuePath="Text" Margin="0 0 0 5">
@@ -183,6 +204,8 @@
                     <TextBlock Text="9"/>
                     <TextBlock Text="10"/>
                 </ComboBox>
+                <Button Grid.Column="3" Content="•"  Margin="5 0 5 5" Click="SectorClear" CommandParameter="Score"/>
+
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
@@ -207,10 +230,9 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto" MinWidth="30"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Type: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <ComboBox  Grid.Column="1" x:Name="sType" ItemsSource="{Binding Source={StaticResource View}, Path=LType}" DisplayMemberPath="Name" SelectedItem="{Binding Type}" Margin="0 0 0 5"/>
+                    <ComboBox  Grid.Column="1" x:Name="sType" ItemsSource="{Binding Source={StaticResource View}, Path=LType}" DisplayMemberPath="Name" SelectedItem="{Binding Type}" Margin="0 0 5 5"/>
                     <!--Понять нужно SelectedValue и SelectedValuePath-->
 
 
@@ -219,73 +241,69 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto" MinWidth="30"/>
+ 
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Name: " Grid.Column="0"  Margin="0 0 0 5"/>
-                    <TextBox Text="{Binding Name}" Grid.Column="1"  Margin="0 0 0 5" MaxLines="250"/>
+                    <TextBox Text="{Binding Name}" Grid.Column="1"  Margin="0 0 5 5" MaxLines="250"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto" MinWidth="30"/>
+ 
                     </Grid.ColumnDefinitions>
                     <TextBlock MinWidth="100" Text="Producer: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LProducer}" DisplayMemberPath="Name" SelectedItem="{Binding Producer}" Grid.Column="1"  Margin="0 0 0 5"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LProducer}" DisplayMemberPath="Name" SelectedItem="{Binding Producer}" Grid.Column="1"  Margin="0 0 5 5"/>
 
-                    <Button Grid.Column="3" Content="•"  Margin="5 0 5 5"/>
+
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto" MinWidth="30"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Year: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <TextBox Text="{Binding Year}" Grid.Column="1" Margin="0 0 0 5"/>
+                    <TextBox Text="{Binding Year}" Grid.Column="1" Margin="0 0 5 5"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto" MinWidth="30"/>
+ 
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Country: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <ComboBox  ItemsSource="{Binding Source={StaticResource View}, Path=LCountry}" DisplayMemberPath="Name" SelectedItem="{Binding Country}" Grid.Column="1" SelectedIndex="0" Margin="0 0 0 5">
+                    <ComboBox  ItemsSource="{Binding Source={StaticResource View}, Path=LCountry}" DisplayMemberPath="Name" SelectedItem="{Binding Country}" Grid.Column="1" SelectedIndex="0" Margin="0 0 5 5">
 
                     </ComboBox>
-                    <Button Grid.Column="3" Content="•"  Margin="5 0 5 5"/>
+
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto" MinWidth="30"/>
+ 
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="AgeRate: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LAgeRate}" DisplayMemberPath="Name" SelectedItem="{Binding AgeRate}" Grid.Column="1" SelectedIndex="0"  Margin="0 0 0 5"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LAgeRate}" DisplayMemberPath="Name" SelectedItem="{Binding AgeRate}" Grid.Column="1" SelectedIndex="0"  Margin="0 0 5 5"/>
 
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto" MinWidth="30"/>
+ 
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Genre: " Grid.Column="0"  Margin="0 0 0 5" />
-                    <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LGenre}" DisplayMemberPath="Name" SelectedItem="{Binding Genre}" Grid.Column="1" SelectedIndex="0"  Margin="0 0 0 5"/>
-
-
-                    <Button Grid.Column="3" Content="•"  Margin="5 0 5 5"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LGenre}" DisplayMemberPath="Name" SelectedItem="{Binding Genre}" Grid.Column="1" SelectedIndex="0"  Margin="0 0 5 5"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto" MinWidth="30"/>
+ 
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Score: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <ComboBox Grid.Column="1" SelectedIndex="0" SelectedValue="{Binding Score}" SelectedValuePath="Text" Margin="0 0 0 5">
+                    <ComboBox Grid.Column="1" SelectedIndex="0" SelectedValue="{Binding Score}" SelectedValuePath="Text" Margin="0 0 5 5">
                         <!--Добавить цветовую градацию-->
                         <TextBlock Text="Not Viewed"/>
                         <TextBlock Text="0"/>

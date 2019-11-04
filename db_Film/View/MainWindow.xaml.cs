@@ -81,5 +81,19 @@ namespace db_Film.View
             */
 
         }
+
+        private void SectorClear(object sender, RoutedEventArgs e)
+        {
+            switch (((Button)sender).CommandParameter)
+            {
+                case "Name": fName.Text = null; break;
+                case "Producer": fProducer.SelectedIndex = -1;break;
+                case "Year": fYear.Text = null; ; break;
+                case "Country": fCountry.SelectedIndex = -1; ; break;
+                case "AgeRate": fAgeRate.SelectedIndex = -1; ; break;
+                case "Genre": fGenre.SelectedIndex = -1; ; break;
+                case "Score": fScore.SelectedIndex = -1; ; break;
+            }
+        }
     }
 }

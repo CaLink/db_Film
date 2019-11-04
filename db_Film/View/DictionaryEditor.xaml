@@ -32,7 +32,7 @@
                 <ListView Grid.Row="0" Margin="10" ItemsSource="{Binding SelectedDick.Array}" HorizontalContentAlignment="Stretch" DataContext="{StaticResource View}" SelectedItem="{Binding EditDickItem}" Grid.ColumnSpan="2">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="250"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="240"/>
                         </GridView>
                     </ListView.View>
                     <ListView.ContextMenu>

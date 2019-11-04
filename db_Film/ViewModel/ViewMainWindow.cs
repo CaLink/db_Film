@@ -228,7 +228,7 @@ namespace db_Film.ViewModel
                     if (!string.IsNullOrEmpty(FindFilm.Name))
                         where += $"AND tbl_film.`Name` LIKE '%{FindFilm.Name}%' ";
                     if (FindFilm.Producer != null)
-                        where += $"AND tbl.film.Producer = {FindFilm.Producer.ID} ";
+                        where += $"AND tbl_film.Producer = {FindFilm.Producer.ID} ";
                     if (!string.IsNullOrEmpty(FindFilm.Year))
                         where += $"AND tbl_film.`Year` LIKE '%{FindFilm.Year}%' ";
                     if (FindFilm.Genre != null)

@@ -7,6 +7,22 @@
         mc:Ignorable="d"
         Title="Abort" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="1" Margin="10 10 0 10">
+            <TextBlock Text="db_Film" FontFamily="Cooper Black" FontSize="36"/>
+            <TextBlock Text="Version 0.5" FontFamily="Comic Sans MS" FontSize="20"/>
+            <TextBlock Text="Author: SomeOneInvalid" FontFamily="Comic Sans MS" FontSize="20"/>
+            <TextBlock Text="Invalid Inc. No one right is protected" FontFamily="Comic Sans MS" FontSize="20"/>
+        </StackPanel>
+        <Image Grid.Column="1" Grid.Row="1" Margin="10" Source="pack://siteoforigin:,,,/Source/123.png"/>
+        <Image Grid.Column="0" Grid.RowSpan="2" Margin="10" Source="pack://siteoforigin:,,,/Source/img1.jpg"/>
+
     </Grid>
 </Window>

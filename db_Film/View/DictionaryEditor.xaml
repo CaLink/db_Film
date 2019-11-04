@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:db_Film"
         xmlns:View="clr-namespace:db_Film.ViewModel"
         mc:Ignorable="d"
-        Title="DictionaryEditor" Height="450" Width="300">
+        Title="Dictionary Editor" Height="450" Width="300">
     <Window.Resources>
         <View:ViewDick x:Key="View"/>
     </Window.Resources>
@@ -32,7 +32,7 @@
                 <ListView Grid.Row="0" Margin="10" ItemsSource="{Binding SelectedDick.Array}" HorizontalContentAlignment="Stretch" DataContext="{StaticResource View}" SelectedItem="{Binding EditDickItem}" Grid.ColumnSpan="2">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="250"/>
                         </GridView>
                     </ListView.View>
                     <ListView.ContextMenu>

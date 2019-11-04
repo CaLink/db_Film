@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace db_Film.ViewModel
 {
@@ -21,6 +22,7 @@ namespace db_Film.ViewModel
         public CustomCommand<string> Save { get; set; }
         public CustomCommand<string> Add { get; set; }
         public CustomCommand<Dick> Del { get; set; }
+        
 
 
 
@@ -67,10 +69,18 @@ namespace db_Film.ViewModel
             Del = new CustomCommand<Dick>(
                 (s) =>
                 {
+                    try
+                    {
+                        new DickSQL().OutputDick(EditDickItem, SelectedDick.Name);
+                        SelectedDick.Array.Add(EditDickItem); RaiseEvent(nameof(SelectedDick.Array));
+                    }
+                    catch (Exception)
+                    {
 
-                    SelectedDick.Array.Add(EditDickItem); RaiseEvent(nameof(SelectedDick.Array));
+                        MessageBox.Show("Before deleting the current item, you need to change all the movies in which it participates \nКакая Досада");
+                    }
                     
-                    new DickSQL().OutputDick(EditDickItem, SelectedDick.Name);
+                    
 
                 }, () => EditDickItem != null);
 

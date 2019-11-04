@@ -61,6 +61,8 @@ namespace db_Film.ViewModel
         public CustomCommand<Film> FindIndex { get; set; }
 
         public CustomCommand<string> Save { get; set; }
+        public CustomCommand<Poopy> Close { get; set; }
+
         public CustomCommand<Film> FindIt { get; set; }
         public CustomCommand<Poopy> DropIt { get; set; }
 
@@ -174,7 +176,6 @@ namespace db_Film.ViewModel
                         return true;
                     else return false;
                 });
-
 
 
             OpenSmt = new CustomCommand<string>(

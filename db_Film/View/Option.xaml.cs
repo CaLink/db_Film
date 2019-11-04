@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Markup;
+using System.Threading;
 
 namespace db_Film.View
 {
@@ -27,7 +28,8 @@ namespace db_Film.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (MySQL.TestConnection())
+                this.Hide();
         }
     }
 

@@ -8,7 +8,7 @@
         xmlns:s="clr-namespace:System.Collections;assembly=mscorlib"
         xmlns:p="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="870" MaxWidth="870" MinWidth="870" MinHeight="450">
+        Title="db_Film" Height="450" Width="870" MaxWidth="870" MinWidth="870" MinHeight="450">
     <Window.Resources>
         <View:ViewMainWindow x:Key="View"/>
     </Window.Resources>
@@ -222,7 +222,7 @@
                         <ColumnDefinition Width="Auto" MinWidth="30"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Name: " Grid.Column="0"  Margin="0 0 0 5"/>
-                    <TextBox Text="{Binding Name}" Grid.Column="1"  Margin="0 0 0 5"/>
+                    <TextBox Text="{Binding Name}" Grid.Column="1"  Margin="0 0 0 5" MaxLines="250"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -305,10 +305,13 @@
             <Border Grid.Row="0" Padding="15" VerticalAlignment="Top">
                 <Image Source="pack://siteoforigin:,,,/Source/TempJPEG.jpg"  Grid.Column="0" Stretch="Uniform" />
             </Border>
+            <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Comment}" Margin="10 10 10 10" TextWrapping="Wrap"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto" MaxLines="60000"/>
 
-            <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Comment}" Margin="10 10 10 10"/>
-
-            <Button Grid.Row="1" DataContext="{StaticResource View}" x:Name="SaveButton" Command="{Binding Save}" CommandParameter="{}" Content="Save" Grid.Column="1" VerticalAlignment="Bottom" Margin="7" Padding="15 10 15 10" Click="SaveButton_Click"/>
+            <!--<StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Orientation="Horizontal" DataContext="{StaticResource View}">
+                --><!--<Button Content="Close" Padding="15 10 15 10" Margin="7" Command="{Binding Close}"/>--><!--
+            </StackPanel>-->
+            <Button  x:Name="SaveButton" Grid.Row="1" Grid.Column="1" Content="Save" VerticalAlignment="Bottom" Margin="7" Padding="15 10 15 10" Click="SaveButton_Click" DataContext="{StaticResource View}" Command="{Binding Save}"/>
 
         </Grid>
     </Grid>

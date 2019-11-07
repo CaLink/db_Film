@@ -25,12 +25,6 @@ namespace db_Film.View
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (MySQL.TestConnection())
-                this.Hide();
-        }
     }
 
     public class SqlProperties : MarkupExtension

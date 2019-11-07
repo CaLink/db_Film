@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -94,6 +95,15 @@ namespace db_Film.View
                 case "Genre": fGenre.SelectedIndex = -1; ; break;
                 case "Score": fScore.SelectedIndex = -1; ; break;
             }
+        }
+
+        string text;
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Regex.IsMatch(((TextBox)sender).Text, @"[*a-zA-Z*]"))
+                ((TextBox)sender).Text = text;
+            else
+                text = ((TextBox)sender).Text;
         }
     }
 }

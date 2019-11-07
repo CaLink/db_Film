@@ -73,6 +73,8 @@ namespace db_Film.ViewModel
 
         void SaS()
         {
+            try
+            {
             Films = new ObservableCollection<Film>(FilmSQL.GetFilm("1"));
             Data.Films = Films;
             Serials = new ObservableCollection<Film>(FilmSQL.GetFilm("2"));
@@ -100,12 +102,20 @@ namespace db_Film.ViewModel
             RaiseEvent(nameof(LProducer));
             RaiseEvent(nameof(LAgeRate));
             RaiseEvent(nameof(LType));
+            }
+            catch (Exception)
+            {
+
+                System.Windows.MessageBox.Show("Freeman YOU FOOL \nLoad from backup");
+                MySQL.CloseConnection();
+            }
         }
 
 
 
         public ViewMainWindow()
         {
+            
             SaS();
 
 
@@ -135,8 +145,10 @@ namespace db_Film.ViewModel
                         if (string.IsNullOrEmpty(EditFilm.Comment))
                             EditFilm.Comment = "None";
 
-                        new FilmSQL().UpdateFilm(EditFilm);
-
+                        int id = new FilmSQL().UpdateFilm(EditFilm);
+                        if (id == 1)
+                            return;
+                        
                         if (EditFilm.Type.Name != TypeName.ToString())
                         {
                             switch (EditFilm.Type.Name)
@@ -183,9 +195,8 @@ namespace db_Film.ViewModel
                 {
                     switch (s)
                     {
-                        case "connect": { new Option().ShowDialog(); break; }
-                        case "dickpick": { new DictionaryEditor().Show(); break; }
-                        case "Abort": { new Abort().ShowDialog(); break; }
+                        case "dickpick": { Manager.AddWindowOpen(new DictionaryEditor()); break; }
+                        case "Abort": { Manager.AddWindowDialog(new Abort()); break; }
                     }
                 });
             ButtonEdit = new CustomCommand<Film>((film) =>

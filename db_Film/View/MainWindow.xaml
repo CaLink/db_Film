@@ -115,7 +115,7 @@
 
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Name: " Grid.Column="0"  Margin="0 0 0 5"/>
-                <TextBox x:Name="fName" Text="{Binding Name}" Grid.Column="1"  Margin="0 0 0 5"/>
+                <TextBox x:Name="fName" Text="{Binding Name}" Grid.Column="1"  Margin="0 0 0 5" MaxLength="200"/>
                 <Button Grid.Column="3" Content="•"  Margin="5 0 5 5" Click="SectorClear" CommandParameter="Name"/>
 
             </Grid>
@@ -141,7 +141,7 @@
 
                 </Grid.ColumnDefinitions>
                 <ComboBoxItem Content="Year: " Grid.Column="0" Margin="0 0 0 5"/>
-                <TextBox  x:Name="fYear" Text="{Binding Year}" Grid.Column="1" Margin="0 0 0 5"/>
+                <TextBox  x:Name="fYear" Text="{Binding Year}" Grid.Column="1" Margin="0 0 0 5" MaxLength="4" TextChanged="TextBox_TextChanged"/>
                 <Button Grid.Column="3" Content="•"  Margin="5 0 5 5" Click="SectorClear" CommandParameter="Year"/>
 
             </Grid>
@@ -244,7 +244,7 @@
  
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Name: " Grid.Column="0"  Margin="0 0 0 5"/>
-                    <TextBox Text="{Binding Name}" Grid.Column="1"  Margin="0 0 5 5" MaxLines="250"/>
+                    <TextBox Text="{Binding Name}" Grid.Column="1"  Margin="0 0 5 5" MaxLength="250"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -254,8 +254,6 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock MinWidth="100" Text="Producer: " Grid.Column="0" Margin="0 0 0 5"/>
                     <ComboBox ItemsSource="{Binding Source={StaticResource View}, Path=LProducer}" DisplayMemberPath="Name" SelectedItem="{Binding Producer}" Grid.Column="1"  Margin="0 0 5 5"/>
-
-
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -263,7 +261,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Year: " Grid.Column="0" Margin="0 0 0 5"/>
-                    <TextBox Text="{Binding Year}" Grid.Column="1" Margin="0 0 5 5"/>
+                    <TextBox Text="{Binding Year}" Grid.Column="1" Margin="0 0 5 5" TextChanged="TextBox_TextChanged" MaxLength="4"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -324,7 +322,7 @@
                 <Image Source="pack://siteoforigin:,,,/Source/TempJPEG.jpg"  Grid.Column="0" Stretch="Uniform" />
             </Border>
             <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Comment}" Margin="10 10 10 10" TextWrapping="Wrap"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto" MaxLines="60000"/>
+                     ScrollViewer.VerticalScrollBarVisibility="Auto" MaxLength="60000"/>
 
             <!--<StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Orientation="Horizontal" DataContext="{StaticResource View}">
                 --><!--<Button Content="Close" Padding="15 10 15 10" Margin="7" Command="{Binding Close}"/>--><!--

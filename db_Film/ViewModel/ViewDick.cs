@@ -22,7 +22,7 @@ namespace db_Film.ViewModel
         public CustomCommand<string> Save { get; set; }
         public CustomCommand<string> Add { get; set; }
         public CustomCommand<Dick> Del { get; set; }
-        
+
 
 
 
@@ -42,9 +42,9 @@ namespace db_Film.ViewModel
                     if (EditDickItem.ID == -1)
                     {
                         new DickSQL().InputDick(EditDickItem, SelectedDick.Name);
-                        
+
                         SelectedDick.Array.Add(EditDickItem); RaiseEvent(nameof(SelectedDick.Array));
-                        
+
                         EditDickItem = null;
 
                     }
@@ -52,6 +52,7 @@ namespace db_Film.ViewModel
                     {
 
                         new DickSQL().UpdateDick(EditDickItem, SelectedDick.Name);
+                        RaiseEvent(nameof(SelectedDick.Array));
 
                         EditDickItem = null;
                     }
@@ -69,19 +70,24 @@ namespace db_Film.ViewModel
             Del = new CustomCommand<Dick>(
                 (s) =>
                 {
-                    try
-                    {
-                        new DickSQL().OutputDick(EditDickItem, SelectedDick.Name);
-                        SelectedDick.Array.Add(EditDickItem); RaiseEvent(nameof(SelectedDick.Array));
-                    }
-                    catch (Exception)
-                    {
 
+                    int check = new DickSQL().OutputDick(EditDickItem, SelectedDick.Name);
+                    if (check == 0)
+                    {
+                        SelectedDick.Array.Remove(EditDickItem);
+                        RaiseEvent(nameof(SelectedDick.Array));
+                    }
+
+
+
+                    /*
+                    if (new DickSQL().OutputDick(EditDickItem, SelectedDick.Name) != 0)
                         MessageBox.Show("Before deleting the current item, you need to change all the movies in which it participates \nКакая Досада");
-                    }
-                    
-                    
-
+                    else
+                    {
+                        SelectedDick.Array.Add(EditDickItem);
+                        RaiseEvent(nameof(SelectedDick.Array));
+                    }*/
                 }, () => EditDickItem != null);
 
 

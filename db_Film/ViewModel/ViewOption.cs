@@ -31,7 +31,10 @@ namespace db_Film.ViewModel
                     MySQL.SetUpMySqlConnection();
                     Properties.Settings.Default.Save();
                     if (MySQL.TestConnection())
-                        new MainWindow().ShowDialog();
+                    {
+                        Manager.AddWindowOpen(new MainWindow());
+                        Manager.Close(typeof(Option));
+                    }
                     else
                         System.Windows.MessageBox.Show("Access Denied");
                     

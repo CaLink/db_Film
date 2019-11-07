@@ -82,7 +82,7 @@ namespace db_Film.Model
                     mc.Parameters.Add(p);
 
                     p = new MySqlParameter("@i", MySqlDbType.String);
-                        p.Value = film.Comment;
+                    p.Value = film.Comment;
                     mc.Parameters.Add(p);
 
                     p = new MySqlParameter("@j", MySqlDbType.Int32);
@@ -95,56 +95,78 @@ namespace db_Film.Model
             CloseConnection();
         }
 
-        public void UpdateFilm(Film film)
+        public int UpdateFilm(Film film)
         {
+            int id = -1;
+            string check = $"select tbl_film.id from tbl_film where tbl_film.id ={film.Id}";
             string query = $"update tbl_film set Name = @b, Producer = @c,Year = @d, Genre = @e, Country = @f, AgeRate = @g,Score = @h,Comment = @i,Type = @j where id={film.Id}";
             if (OpenConnection())
             {
-                using (MySqlCommand mc = new MySqlCommand(query, connection))
+                using (MySqlCommand mc = new MySqlCommand(check, connection))
+                using (MySqlDataReader dr = mc.ExecuteReader())
+                    while (dr.Read())
+                        id = dr.GetInt32("id");
+
+                if (id > -1)
+                    using (MySqlCommand mc = new MySqlCommand(query, connection))
+                    {
+                        MySqlParameter p = new MySqlParameter("@b", MySqlDbType.String);
+                        p.Value = film.Name;
+                        mc.Parameters.Add(p);
+
+                        p = new MySqlParameter("@c", MySqlDbType.Int32);
+                        p.Value = film.Producer.ID;
+                        mc.Parameters.Add(p);
+
+
+                        p = new MySqlParameter("@d", MySqlDbType.String);
+                        p.Value = film.Year;
+                        mc.Parameters.Add(p);
+
+                        p = new MySqlParameter("@e", MySqlDbType.Int32);
+                        p.Value = film.Genre.ID;
+                        mc.Parameters.Add(p);
+
+
+                        p = new MySqlParameter("@f", MySqlDbType.Int32);
+                        p.Value = film.Country.ID;
+                        mc.Parameters.Add(p);
+
+
+                        p = new MySqlParameter("@g", MySqlDbType.Int32);
+                        p.Value = film.AgeRate.ID;
+                        mc.Parameters.Add(p);
+
+                        p = new MySqlParameter("@h", MySqlDbType.String);
+                        p.Value = film.Score;
+                        mc.Parameters.Add(p);
+
+                        p = new MySqlParameter("@i", MySqlDbType.String);
+                        p.Value = film.Comment;
+                        mc.Parameters.Add(p);
+
+                        p = new MySqlParameter("@j", MySqlDbType.Int32);
+                        p.Value = film.Type.ID;
+                        mc.Parameters.Add(p);
+
+                        mc.ExecuteNonQuery();
+
+                        CloseConnection();
+                        return 0;
+                    }
+                else
                 {
-                    MySqlParameter p = new MySqlParameter("@b", MySqlDbType.String);
-                    p.Value = film.Name;
-                    mc.Parameters.Add(p);
-
-                    p = new MySqlParameter("@c", MySqlDbType.Int32);
-                    p.Value = film.Producer.ID;
-                    mc.Parameters.Add(p);
-
-
-                    p = new MySqlParameter("@d", MySqlDbType.String);
-                    p.Value = film.Year;
-                    mc.Parameters.Add(p);
-
-                    p = new MySqlParameter("@e", MySqlDbType.Int32);
-                    p.Value = film.Genre.ID;
-                    mc.Parameters.Add(p);
-
-
-                    p = new MySqlParameter("@f", MySqlDbType.Int32);
-                    p.Value = film.Country.ID;
-                    mc.Parameters.Add(p);
-
-
-                    p = new MySqlParameter("@g", MySqlDbType.Int32);
-                    p.Value = film.AgeRate.ID;
-                    mc.Parameters.Add(p);
-
-                    p = new MySqlParameter("@h", MySqlDbType.String);
-                    p.Value = film.Score;
-                    mc.Parameters.Add(p);
-
-                    p = new MySqlParameter("@i", MySqlDbType.String);
-                    p.Value = film.Comment;
-                    mc.Parameters.Add(p);
-
-                    p = new MySqlParameter("@j", MySqlDbType.Int32);
-                    p.Value = film.Type.ID;
-                    mc.Parameters.Add(p);
-
-                    mc.ExecuteNonQuery();
+                    System.Windows.MessageBox.Show("Freeman YOU FOOL \nPlease reload db");
+                    CloseConnection();
+                    return 1;
                 }
+
             }
-            CloseConnection();
+
+
+            return 1;
+
+
         }
 
 

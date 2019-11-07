@@ -31,11 +31,13 @@ namespace db_Film.Model
         public void InputDick(Dick dick, string tbl)
         {
             tbl = tbl.ToLower();
-            dick.ID = ShowNextID($"tbl_{tbl}"); 
+            dick.ID = ShowNextID($"tbl_{tbl}");
             string quety = $"insert into tbl_{tbl} value(0,@b)";
-            if(OpenConnection())
+            if (OpenConnection())
             {
-                using (MySqlCommand mc = new MySqlCommand(quety,connection))
+
+
+                using (MySqlCommand mc = new MySqlCommand(quety, connection))
                 {
                     MySqlParameter p = new MySqlParameter("@b", MySqlDbType.String);
                     p.Value = dick.Name;
@@ -51,27 +53,72 @@ namespace db_Film.Model
         public void UpdateDick(Dick dick, string tbl)
         {
             tbl = tbl.ToLower();
+            int temp = -1;
+            string check = $"select tbl_{tbl}.id from tbl_{tbl} where tbl_{tbl}.id = {dick.ID}";
             string query = $"update tbl_{tbl} set Name = @b where id={dick.ID}";
             if (OpenConnection())
             {
-                using (MySqlCommand mc = new MySqlCommand(query, connection))
-                {
-                    MySqlParameter p = new MySqlParameter("@b", MySqlDbType.String);
-                    p.Value = dick.Name;
-                    mc.Parameters.Add(p);
+                using (MySqlCommand mc = new MySqlCommand(check, connection))
+                using (MySqlDataReader dr = mc.ExecuteReader())
 
-                    mc.ExecuteNonQuery();
-                }
+                    while (dr.Read())
+                        temp = dr.GetInt32("id");
+
+
+                if (temp != -1)
+                    using (MySqlCommand mc = new MySqlCommand(query, connection))
+                    {
+                        MySqlParameter p = new MySqlParameter("@b", MySqlDbType.String);
+                        p.Value = dick.Name;
+                        mc.Parameters.Add(p);
+
+                        mc.ExecuteNonQuery();
+                    }
+                else
+                    System.Windows.MessageBox.Show("Freeman YOU FOOOOL \nPlease reload db");
                 CloseConnection();
             }
 
         }
 
-        public void OutputDick(Dick dick, string tbl)
+        public int OutputDick(Dick dick, string tbl)
         {
+            //int result = 0;
             tbl = tbl.ToLower();
+            int id = -1;
+            string check = $"select tbl_film.id from tbl_film where {tbl} = {dick.ID}";
             string query = $"delete from tbl_{tbl} where id={dick.ID}";
-            ExecureNonQuery(query);
+
+            if (OpenConnection())
+                using (MySqlCommand mc = new MySqlCommand(check, connection))
+                using (MySqlDataReader dr = mc.ExecuteReader())
+                    while (dr.Read())
+                        id = dr.GetInt32("id");
+            CloseConnection();
+
+            if (id == -1)
+            {
+                ExecureNonQuery(query);
+                return 0;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Freeman YOU FOOOL \nBefore deleting the current item, you need to change all the movies in which it participates ");
+                return 1;
+            }
+
+            /*if (OpenConnection())
+            {
+                using (MySqlCommand mc = new MySqlCommand(query, connection))
+                {
+                    result = mc.ExecuteReader().RecordsAffected;
+
+                }
+                CloseConnection();
+            }
+            return result;*/
+
+
         }
 
 

@@ -38,7 +38,7 @@ namespace db_Film
             }
         }
 
-        static protected void CloseConnection()
+        static public void CloseConnection()
         {
             try
             {
